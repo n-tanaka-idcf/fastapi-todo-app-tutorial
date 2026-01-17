@@ -1,0 +1,87 @@
+{
+    "name": "python",
+    "dockerComposeFile": [
+        "../compose.yml"
+    ],
+    "service": "python",
+    "runServices": [
+        "python"
+    ],
+    "containerEnv": {
+        "DEVCONTAINER_NAME": "python",
+        "DEVCONTAINER_USER": "vscode",
+        "EDITOR": "code --wait",
+        "LC_ALL": "C.UTF-8",
+        "TZ": "Asia/Tokyo"
+    },
+    "remoteEnv": {
+        "PATH": "/home/${containerEnv:DEVCONTAINER_USER}/.local/share/aquaproj-aqua/bin:${containerEnv:PATH}",
+        "AQUA_CONFIG": "${containerWorkspaceFolder}/.devcontainer/${containerEnv:DEVCONTAINER_NAME}/aqua.yaml"
+    },
+    "remoteUser": "vscode",
+    "workspaceFolder": "/workspaces",
+    "forwardPorts": [
+        8000
+    ],
+    "features": {
+        "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {},
+        "ghcr.io/devcontainers/features/sshd:1": {},
+        "ghcr.io/aquaproj/devcontainer-features/aqua-installer:0.1.6": {
+            "aqua_version": "v2.51.2"
+        }
+    },
+    "postCreateCommand": "./.devcontainer/${containerEnv:DEVCONTAINER_NAME}/postCreateCommand.sh",
+    "customizations": {
+        "vscode": {
+            "settings": {
+                // Editor
+                "editor.formatOnSave": true,
+                // Files
+                "files.insertFinalNewline": true,
+                "files.trimFinalNewlines": true,
+                "files.trimTrailingWhitespace": true,
+                // Python
+                "python.defaultInterpreterPath": "/workspaces/${containerEnv:DEVCONTAINER_NAME}/.venv/bin/python3",
+                "python.useEnvironmentsExtension": true,
+                "python.languageServer": "Pylance",
+                "python.analysis.diagnosticMode": "workspace",
+                "python.analysis.extraPaths": [],
+                "python.analysis.typeCheckingMode": "standard",
+                "python.analysis.diagnosticSeverityOverrides": {
+                    "reportMissingTypeStubs": "none"
+                },
+                "python.analysis.completeFunctionParens": true,
+                "python.analysis.autoImportCompletions": true,
+                "[python]": {
+                    "editor.tabSize": 4,
+                    "editor.defaultFormatter": "charliermarsh.ruff",
+                    "editor.codeActionsOnSave": {
+                        "source.fixAll": "explicit",
+                        "source.organizeImports": "explicit"
+                    }
+                }
+                // Workspace
+                // "autoOpenWorkspace.enableAutoOpenAlwaysFirst": true
+            },
+            "extensions": [
+                // Docker
+                "exiasr.hadolint",
+                "ms-azuretools.vscode-containers",
+                // Github Actions
+                "github.vscode-github-actions",
+                // Markdown
+                "yzhang.markdown-all-in-one",
+                "davidanson.vscode-markdownlint",
+                // Python
+                "charliermarsh.ruff",
+                "ms-python.python",
+                // Toml
+                "tamasfe.even-better-toml",
+                // Yaml
+                "redhat.vscode-yaml"
+                // Workspace
+                // "zoma.vscode-auto-open-workspace"
+            ]
+        }
+    }
+}
