@@ -1,0 +1,59 @@
+---
+name: devcontainer_ci
+
+on:
+  push:
+    paths:
+      - .github/workflows/devcontainer_ci.yml
+      - .devcontainer/**
+      - python/.python-version
+      - python/pyproject.toml
+      - python/uv.lock
+
+defaults:
+  run:
+    shell: bash
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build_devcontainers:
+    strategy:
+      matrix:
+        devcontainer:
+          - python
+
+    name: Build Devcontainer for ${{ matrix.devcontainer }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Show workflow run-time information
+        run: |
+          echo Workflow: ${{ github.workflow }}
+          echo Branch: ${{ github.ref }}
+          echo Tag: ${{ github.ref_name }}
+          echo Commit: ${{ github.sha }}
+          echo Building devcontainer for ${{ matrix.devcontainer }}
+
+      - name: Check Dockerfile
+        uses: hadolint/hadolint-action@v3.1.0
+        with:
+          dockerfile: .devcontainer/${{ matrix.devcontainer }}/Dockerfile
+
+      - name: Create .env file
+        run: |
+          cat <<EOF > .devcontainer/.env
+          UID=$(id -u)
+          GID=$(id -g)
+          EOF
+
+      - name: Build devcontainer image
+        uses: devcontainers/ci@v0.3
+        with:
+          configFile: .devcontainer/${{ matrix.devcontainer }}/devcontainer.json
+          push: never
