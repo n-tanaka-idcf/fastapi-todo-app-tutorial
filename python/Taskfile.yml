@@ -16,6 +16,12 @@ tasks:
       - task --version
       - uv --version
 
+  code:check:
+    desc: Check the codebase.
+    deps:
+      - code:lint
+      - code:test
+
   code:lint:
     desc: Lint the codebase.
     cmds:
