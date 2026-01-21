@@ -59,7 +59,9 @@
                         "source.fixAll": "explicit",
                         "source.organizeImports": "explicit"
                     }
-                }
+                },
+                // Terminal
+                "terminal.integrated.suggest.enabled": true
                 // Workspace
                 // "autoOpenWorkspace.enableAutoOpenAlwaysFirst": true
             },
