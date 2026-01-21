@@ -1,6 +1,9 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends
+from sqlalchemy.orm import Session
 
+import api.cruds.task as task_crud
 import api.schemas.task as task_schema
+from api.db import get_db
 
 router = APIRouter()
 
@@ -11,8 +14,8 @@ async def list_tasks():
 
 
 @router.post("/tasks", response_model=task_schema.TaskCreateResponse)
-async def create_task(task_body: task_schema.TaskCreate):
-    return task_schema.TaskCreateResponse(id=1, **task_body.model_dump())
+async def create_task(task_body: task_schema.TaskCreate, db: Session = Depends(get_db)):
+    return task_crud.create_task(db, task_body)
 
 
 @router.put("/tasks/{task_id}", response_model=task_schema.TaskCreateResponse)
