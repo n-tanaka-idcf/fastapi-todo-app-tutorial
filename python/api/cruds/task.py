@@ -16,7 +16,7 @@ async def create_task(
     return task
 
 
-async def get_tasks_with_done(db: AsyncSession) -> list[tuple[int, str, bool]]:
+async def get_tasks_with_done(db: AsyncSession) -> list[task_schema.Task]:
     result: Result = await db.execute(
         select(
             task_model.Task.id,
@@ -25,7 +25,10 @@ async def get_tasks_with_done(db: AsyncSession) -> list[tuple[int, str, bool]]:
         ).outerjoin(task_model.Done)
     )
 
-    return result.all()
+    return [
+        task_schema.Task(id=row.id, title=row.title, done=row.done)
+        for row in result.all()
+    ]
 
 
 async def get_task(db: AsyncSession, task_id: int) -> task_model.Task | None:
