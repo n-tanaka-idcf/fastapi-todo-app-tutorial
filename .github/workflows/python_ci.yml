@@ -23,7 +23,7 @@ concurrency:
     cancel-in-progress: true
 
 jobs:
-    test:
+    ci:
         runs-on: ubuntu-latest
         timeout-minutes: 30
         steps:
@@ -44,6 +44,9 @@ jobs:
 
             - name: Sync dependencies
               run: uv sync --frozen --group dev
+
+            - name: Run ruff
+              run: uv run ruff check .
 
             - name: Run pytest
               run: uv run pytest .
