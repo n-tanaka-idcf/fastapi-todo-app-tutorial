@@ -31,3 +31,8 @@ tasks:
     desc: Test the codebase.
     cmds:
       - uv run pytest .
+
+  code:test-auto:
+    desc: Test the codebase automatically on file changes.
+    cmds:
+      - watchexec -w api -w tests -- "uv run ruff check . && uv run pytest ."
