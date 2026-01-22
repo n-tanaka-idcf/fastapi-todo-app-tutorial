@@ -1,13 +1,9 @@
 {
     "name": "python",
     "dockerComposeFile": [
-        "../compose.yml"
+        "../../compose.yml"
     ],
     "service": "python",
-    "runServices": [
-        "python",
-        "db"
-    ],
     "containerEnv": {
         "DEVCONTAINER_NAME": "python",
         "DEVCONTAINER_USER": "vscode",
@@ -31,6 +27,7 @@
             "aqua_version": "v2.51.2"
         }
     },
+    // TOØO
     "postCreateCommand": "./.devcontainer/${containerEnv:DEVCONTAINER_NAME}/postCreateCommand.sh",
     "customizations": {
         "vscode": {

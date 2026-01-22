@@ -11,7 +11,7 @@ services:
     stdin_open: true
     restart: unless-stopped
     volumes:
-      - ../:/workspaces
+      - .:/workspaces
   db:
     image: mysql:8.0
     environment:
