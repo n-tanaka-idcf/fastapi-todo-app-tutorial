@@ -7,6 +7,7 @@ on:
       - .github/workflows/devcontainer_ci.yml
       - .devcontainer/**
       - python/.python-version
+      - python/Dockrefile
       - python/pyproject.toml
       - python/uv.lock
 
@@ -43,7 +44,7 @@ jobs:
       - name: Check Dockerfile
         uses: hadolint/hadolint-action@v3.1.0
         with:
-          dockerfile: .devcontainer/${{ matrix.devcontainer }}/Dockerfile
+          dockerfile: ${{ matrix.devcontainer }}/Dockerfile
 
       - name: Create .env file
         run: |
