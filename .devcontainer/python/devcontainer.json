@@ -61,6 +61,10 @@
                         "source.organizeImports": "explicit"
                     }
                 },
+                // Github Actions
+                "[github-actions-workflow]": {
+                    "editor.tabSize": 2
+                },
                 // Terminal
                 "terminal.integrated.suggest.enabled": true
                 // Workspace

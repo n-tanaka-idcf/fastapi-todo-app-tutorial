@@ -2,51 +2,51 @@
 name: Python CI - Tests
 
 on:
-    push:
-        paths:
-            - .github/workflows/python_ci.yml
-            - python/**
-    pull_request:
-        paths:
-            - .github/workflows/python_ci.yml
-            - python/**
+  push:
+    paths:
+      - .github/workflows/python_ci.yml
+      - python/**
+  pull_request:
+    paths:
+      - .github/workflows/python_ci.yml
+      - python/**
 
-    workflow_dispatch:
+  workflow_dispatch:
 
 defaults:
-    run:
-        shell: bash
-        working-directory: python
+  run:
+    shell: bash
+    working-directory: python
 
 concurrency:
-    group: ${{ github.workflow }}-${{ github.ref }}
-    cancel-in-progress: true
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
-    ci:
-        runs-on: ubuntu-latest
-        timeout-minutes: 30
-        steps:
-            - name: Checkout repository
-              uses: actions/checkout@v4
+  ci:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-            - name: Setup Python
-              uses: actions/setup-python@v5
-              with:
-                  python-version-file: python/.python-version
-                  allow-prereleases: false
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: python/.python-version
+          allow-prereleases: false
 
-            - name: Setup uv
-              uses: astral-sh/setup-uv@v5
-              with:
-                  enable-cache: true
-                  cache-dependency-glob: python/uv.lock
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          enable-cache: true
+          cache-dependency-glob: python/uv.lock
 
-            - name: Sync dependencies
-              run: uv sync --frozen --group dev
+      - name: Sync dependencies
+        run: uv sync --frozen --group dev
 
-            - name: Run ruff
-              run: uv run ruff check .
+      - name: Run ruff
+        run: uv run ruff check .
 
-            - name: Run pytest
-              run: uv run pytest .
+      - name: Run pytest
+        run: uv run pytest .
