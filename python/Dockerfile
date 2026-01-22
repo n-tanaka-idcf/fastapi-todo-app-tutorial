@@ -20,5 +20,14 @@ RUN groupadd --gid ${GID} ${GROUP} && \
     echo "$USER ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 COPY --from=ghcr.io/astral-sh/uv:0.9.21 /uv /usr/local/bin/uv
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+WORKDIR /workspaces/python
+RUN chown ${USER}:${GROUP} /workspaces/python
 
 USER ${USER}
+COPY pyproject.toml uv.lock ./
+RUN  uv sync --frozen
+
+ENTRYPOINT [ "/usr/local/bin/entrypoint.sh" ]

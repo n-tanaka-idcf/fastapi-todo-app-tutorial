@@ -1,13 +1,9 @@
 {
     "name": "python",
     "dockerComposeFile": [
-        "../compose.yml"
+        "../../compose.yml"
     ],
     "service": "python",
-    "runServices": [
-        "python",
-        "db"
-    ],
     "containerEnv": {
         "DEVCONTAINER_NAME": "python",
         "DEVCONTAINER_USER": "vscode",
@@ -65,6 +61,8 @@
                 "[github-actions-workflow]": {
                     "editor.tabSize": 2
                 },
+                // Remote
+                "remote.autoForwardPorts": false,
                 // Terminal
                 "terminal.integrated.suggest.enabled": true
                 // Workspace

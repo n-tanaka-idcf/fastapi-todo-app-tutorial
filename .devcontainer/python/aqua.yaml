@@ -14,3 +14,4 @@ packages:
   - name: go-task/task@v3.46.4
   - name: hadolint/hadolint@v2.14.0
   - name: starship/starship@v1.24.2
+  - name: watchexec/watchexec@v2.3.3

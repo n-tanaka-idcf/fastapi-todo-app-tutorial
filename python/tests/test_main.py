@@ -1,26 +1,30 @@
+from typing import AsyncGenerator
+
 import pytest
 import pytest_asyncio
 import starlette.status
 from api.db import Base, get_db
 from api.main import app
 from httpx import ASGITransport, AsyncClient
-from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.pool import StaticPool
 
 ASYNC_DB_URL = "sqlite+aiosqlite:///:memory:"
 
 
 @pytest_asyncio.fixture
-async def async_client() -> AsyncClient:
+async def async_client() -> AsyncGenerator[AsyncClient, None]:
     async_engine = create_async_engine(
         ASYNC_DB_URL,
         echo=True,
         connect_args={"check_same_thread": False},
         poolclass=StaticPool,
     )
-    async_session = sessionmaker(
-        autocommit=False, autoflush=False, bind=async_engine, class_=AsyncSession
+    async_session = async_sessionmaker(
+        expire_on_commit=False,
+        autoflush=False,
+        bind=async_engine,
+        class_=AsyncSession,
     )
 
     async with async_engine.begin() as conn:
