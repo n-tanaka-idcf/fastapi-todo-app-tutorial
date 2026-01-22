@@ -27,7 +27,7 @@
             "aqua_version": "v2.51.2"
         }
     },
-    "postCreateCommand": "./.devcontainer/${containerEnv:DEVCONTAINER_NAME}/postCreateCommand.sh",
+    "postCreateCommand": "bash -c './.devcontainer/$DEVCONTAINER_NAME/postCreateCommand.sh'",
     "customizations": {
         "vscode": {
             "settings": {
