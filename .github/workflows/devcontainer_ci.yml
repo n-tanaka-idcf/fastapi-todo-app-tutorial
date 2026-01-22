@@ -48,7 +48,7 @@ jobs:
 
       - name: Create .env file
         run: |
-          cat <<EOF > .devcontainer/.env
+          cat <<EOF > .env
           UID=$(id -u)
           GID=$(id -g)
           EOF
