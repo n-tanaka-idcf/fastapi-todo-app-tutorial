@@ -27,7 +27,7 @@
             "aqua_version": "v2.51.2"
         }
     },
-    "postCreateCommand": "./.devcontainer/python/postCreateCommand.sh",
+    "postCreateCommand": "./.devcontainer/${containerEnv:DEVCONTAINER_NAME}/postCreateCommand.sh",
     "customizations": {
         "vscode": {
             "settings": {
