@@ -27,7 +27,6 @@
             "aqua_version": "v2.51.2"
         }
     },
-    // TOØO
     "postCreateCommand": "./.devcontainer/${containerEnv:DEVCONTAINER_NAME}/postCreateCommand.sh",
     "customizations": {
         "vscode": {
@@ -62,6 +61,8 @@
                 "[github-actions-workflow]": {
                     "editor.tabSize": 2
                 },
+                // Remote
+                "remote.autoForwardPorts": false,
                 // Terminal
                 "terminal.integrated.suggest.enabled": true
                 // Workspace
