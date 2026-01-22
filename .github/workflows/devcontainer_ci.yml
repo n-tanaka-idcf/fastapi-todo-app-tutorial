@@ -58,3 +58,6 @@ jobs:
         with:
           configFile: .devcontainer/${{ matrix.devcontainer }}/devcontainer.json
           push: never
+          runCmd: |
+            cd /workspaces/python
+            task environment:check
