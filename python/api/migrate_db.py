@@ -5,7 +5,7 @@ from sqlalchemy.engine import Engine
 
 from api.db import Base
 
-# from api.models import task as _task_models  # noqa: F401
+from api.models import task as _task_models  # noqa: F401
 
 
 def _get_sync_db_url() -> str:
@@ -31,6 +31,7 @@ def migrate_db(engine: Engine) -> None:
     if not target_table_names:
         raise RuntimeError(
             "モデルが読み込まれておらず、マイグレーション対象テーブルが空です。"
+            "例えば `api.models.task` をインポートしてからこのスクリプトを実行してください。"
         )
 
     with engine.begin() as conn:

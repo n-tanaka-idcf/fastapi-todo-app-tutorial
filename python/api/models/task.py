@@ -13,7 +13,7 @@ class Task(Base):
     title: Mapped[str | None] = mapped_column(String(1024))
     due_date: Mapped[date | None] = mapped_column(Date)
 
-    done: Mapped["Done"] = relationship("Done", back_populates="task", cascade="delete")
+    done: Mapped["Done"] = relationship("Done", back_populates="task", cascade="delete", uselist=False)
 
 
 class Done(Base):

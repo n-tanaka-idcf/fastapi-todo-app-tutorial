@@ -7,7 +7,7 @@ on:
       - .github/workflows/devcontainer_ci.yml
       - .devcontainer/**
       - python/.python-version
-      - python/Dockrefile
+      - python/Dockerfile
       - python/pyproject.toml
       - python/uv.lock
 
